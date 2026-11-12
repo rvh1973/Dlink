@@ -32,8 +32,16 @@ export class VideoEngine {
     const base = import.meta.env.BASE_URL;
     const coreURL = new URL(`${base}vendor/ffmpeg-core.js`, window.location.origin).href;
     const wasmURL = new URL(`${base}vendor/ffmpeg-core.wasm`, window.location.origin).href;
-    await this.ffmpeg.load({ coreURL, wasmURL });
-    this.loaded = true;
+    try {
+      await this.ffmpeg.load({ coreURL, wasmURL });
+      this.loaded = true;
+    } catch (error) {
+      this.ffmpeg?.terminate();
+      this.ffmpeg = null;
+      this.loaded = false;
+      const detail = describeRuntimeError(error);
+      throw new Error(`No se pudo iniciar el motor de vídeo. Recarga la página e inténtalo de nuevo. Detalle: ${detail}`);
+    }
   }
 
   async process(file, mode) {
@@ -98,4 +106,15 @@ export class VideoEngine {
     this.ffmpeg = null;
     this.loaded = false;
   }
+}
+
+function describeRuntimeError(error) {
+  if (error instanceof Error && error.message) return `${error.name}: ${error.message}`;
+  if (typeof error === "string") return error;
+  if (error && typeof error === "object") {
+    const type = "type" in error ? String(error.type) : "evento desconocido";
+    const target = "target" in error && error.target && "src" in error.target ? String(error.target.src) : "";
+    return target ? `${type} (${target})` : type;
+  }
+  return String(error);
 }

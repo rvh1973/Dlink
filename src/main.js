@@ -162,7 +162,9 @@ async function runRepair() {
     elements.resultPanel.scrollIntoView({ behavior: "smooth", block: "start" });
   } catch (error) {
     if (error?.name !== "AbortError") {
-      showError(error?.message || "No se pudo procesar el vídeo.", engine.logs || []);
+      console.error("Fallo al procesar el vídeo", error);
+      const message = error?.message || (typeof error === "string" ? error : "No se pudo procesar el vídeo.");
+      showError(message, engine.logs || []);
     }
   } finally {
     running = false;
