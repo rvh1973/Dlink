@@ -9,7 +9,7 @@ await mkdir(destination, { recursive: true });
 
 for (const file of ["ffmpeg-core.js", "ffmpeg-core.wasm"]) {
   await copyFile(
-    resolve(root, "node_modules", "@ffmpeg", "core", "dist", "umd", file),
+    resolve(root, "node_modules", "@ffmpeg", "core", "dist", "esm", file),
     resolve(destination, file),
   );
 }
