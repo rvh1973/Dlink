@@ -94,7 +94,7 @@ export class VideoEngine {
     if (tail.includes("out of memory") || tail.includes("memory access out of bounds")) {
       return "El dispositivo se quedó sin memoria. Prueba con un vídeo más corto o usa un ordenador con más memoria.";
     }
-    if (mode === "remux") {
+    if (mode === "remux" || mode === "dlink") {
       return "La reparación rápida no es compatible con el formato interno de este vídeo. Prueba «Compatibilidad iPad», que convierte la imagen y el sonido.";
     }
     return "No se pudo convertir la grabación. Consulta los detalles técnicos o prueba con una copia más corta del archivo original.";
