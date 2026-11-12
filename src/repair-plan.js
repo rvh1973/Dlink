@@ -18,7 +18,7 @@ export function buildCommand(mode, inputName, outputName) {
     "0:a?",
   ];
 
-  if (mode === "remux") {
+  if (mode === "remux" || mode === "dlink") {
     return [
       ...common,
       "-c",
