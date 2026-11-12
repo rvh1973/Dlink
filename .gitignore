@@ -1,0 +1,6 @@
+node_modules/
+dist/
+public/vendor/
+public/icon-180.png
+*.log
+.DS_Store

@@ -1,0 +1,21 @@
+{
+  "name": "dlink-video-repair",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "predev": "node scripts/copy-ffmpeg.mjs && node scripts/create-icon.mjs",
+    "dev": "vite",
+    "prebuild": "node scripts/copy-ffmpeg.mjs && node scripts/create-icon.mjs",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "@ffmpeg/core": "0.12.10",
+    "@ffmpeg/ffmpeg": "0.12.15"
+  },
+  "devDependencies": {
+    "vite": "6.1.0"
+  }
+}
