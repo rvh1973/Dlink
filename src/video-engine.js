@@ -30,8 +30,8 @@ export class VideoEngine {
     });
 
     const base = import.meta.env.BASE_URL;
-    const coreURL = new URL(`${base}vendor/ffmpeg-core.js`, window.location.origin).href;
-    const wasmURL = new URL(`${base}vendor/ffmpeg-core.wasm`, window.location.origin).href;
+    const coreURL = new URL(`${base}vendor/ffmpeg-core.js?v=esm-1`, window.location.origin).href;
+    const wasmURL = new URL(`${base}vendor/ffmpeg-core.wasm?v=esm-1`, window.location.origin).href;
     try {
       await this.ffmpeg.load({ coreURL, wasmURL });
       this.loaded = true;
