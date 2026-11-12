@@ -10,6 +10,7 @@ export function buildCommand(mode, inputName, outputName) {
     "+genpts+discardcorrupt",
     "-err_detect",
     "ignore_err",
+    ...(mode === "dlink" ? ["-ignore_editlist", "1"] : []),
     "-i",
     inputName,
     "-map",
@@ -18,7 +19,17 @@ export function buildCommand(mode, inputName, outputName) {
     "0:a?",
   ];
 
-  if (mode === "remux" || mode === "dlink") {
+  if (mode === "dlink") {
+    return [
+      ...common,
+      "-vf", "setpts=N/(15*TB),format=yuv420p",
+      "-c:v", "libx264", "-preset", "ultrafast", "-crf", "23",
+      "-c:a", "aac", "-b:a", "128k",
+      "-movflags", "+faststart", "-y", outputName,
+    ];
+  }
+
+  if (mode === "remux") {
     return [
       ...common,
       "-c",
